@@ -1,22 +1,21 @@
 <template>
-  <div class="cell p-2" :cell="cell">
-    {{cell}}
+  <div>
+    <div class="cell p-2"
+         v-for="(cell, index) in item"
+         index="index"
+         key="index"
+         :style="cellWidth"
+    >
+      {{cell}}
+    </div>
   </div>
+
 </template>
 
 <script>
-    export default {
-        props: {
-            cell: [Number, String]
-        },
-        // computed: {
-        //     cellWidth() {
-        //         return {
-        //             width: (100 / (Object.keys(this.titles).length + 1)) + '%'
-        //         }
-        //     }
-        // }
-    }
+  export default {
+    props: ['item', 'cellWidth']
+  }
 </script>
 
 <style lang="sass" scoped>

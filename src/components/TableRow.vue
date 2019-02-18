@@ -1,29 +1,31 @@
 <template>
-  <div class="table__row row" :item="item">
-    <div class="cell p-2" :style="cellWidth">{{index += 1}}</div>
-    <div class="cell p-2" v-for="(cell, index) in item" :index="index" :key="index" :style="cellWidth">
-      {{cell}}
+  <div>
+    <div class="table__row row"
+         v-for="(item, index) in items"
+         :index="index"
+         :key="index"
+    >
+      <div class="cell p-2" :style="cellWidth">{{index + 1}}</div>
+      <div class="cell p-2"
+           v-for="(cell, index) in item"
+           :index="index"
+           :key="index"
+           :style="cellWidth"
+      >
+        {{cell}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  // import Cell from './Cell'
+  import Cell from './Cell'
 
   export default {
-      // components: {
-      //     Cell
-      // },
-      props: {
-          item: Object
-      },
-      computed: {
-          cellWidth() {
-              return {
-                  width: (100 / (Object.keys(this.titles).length + 1)) + '%'
-              }
-          }
-      }
+    components: {
+        Cell
+    },
+    props: ['items', 'cellWidth']
   }
 </script>
 

@@ -1,25 +1,25 @@
 <template>
   <div class="table__head row">
-    <div class="cell p-2" :style="cellWidth">№</div>
+    <div class="cell p-2" :style="cellWidth">№ <i class="fa fa-sort"></i></div>
     <div class="cell p-2" v-for="(title, index) in titles" :index="index" :key="index" :style="cellWidth">
-      {{title}}
+      {{title}} <i class="fa fa-sort"></i>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        props: {
-            titles: Object
-        },
-        computed: {
-            cellWidth() {
-                return {
-                    width: (100 / (Object.keys(this.titles).length + 1)) + '%'
-                }
-            }
+  export default {
+    props: {
+      titles: Object
+    },
+    computed: {
+      cellWidth() {
+        return {
+          width: (100 / (Object.keys(this.titles).length + 1)) + '%'
         }
+      }
     }
+  }
 </script>
 
 <style lang="sass" scoped>
@@ -30,6 +30,12 @@
 
     .cell
       border-right: 1px solid #000
+      display: flex
+      justify-content: space-between
+      align-items: center
+      cursor: pointer
+      font-weight: bold
+      background: #e9e9e9
 
       &:first-child
         border-left: 1px solid #000
