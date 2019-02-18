@@ -1,0 +1,36 @@
+<template>
+  <div class="table__head row">
+    <div class="cell p-2" :style="cellWidth">№</div>
+    <div class="cell p-2" v-for="(title, index) in titles" :index="index" :key="index" :style="cellWidth">
+      {{title}}
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+        props: {
+            titles: Object
+        },
+        computed: {
+            cellWidth() {
+                return {
+                    width: (100 / (Object.keys(this.titles).length + 1)) + '%'
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="sass" scoped>
+  .table
+    &__head
+      border-bottom: 1px solid #000
+      border-top: 1px solid #000
+
+    .cell
+      border-right: 1px solid #000
+
+      &:first-child
+        border-left: 1px solid #000
+</style>
