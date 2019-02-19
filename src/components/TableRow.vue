@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <div class="table__row row"
-         v-for="(item, index) in items"
-         :index="index"
+  <div class="table__row row">
+    <div class="cell p-2"
+         :style="styleToCell"
+    >{{index + 1}}</div>
+
+    <div class="cell p-2"
+         v-for="(cell, index) in item"
          :key="index"
-    >
-      <div class="cell p-2" :style="cellWidth">{{index + 1}}</div>
-      <div class="cell p-2"
-           v-for="(cell, index) in item"
-           :index="index"
-           :key="index"
-           :style="cellWidth"
-      >
-        {{cell}}
-      </div>
-    </div>
+         :style="styleToCell"
+    >{{cell}}</div>
   </div>
 </template>
 
@@ -25,7 +19,7 @@
     components: {
         Cell
     },
-    props: ['items', 'cellWidth']
+    props: ['item', 'styleToCell', 'index']
   }
 </script>
 

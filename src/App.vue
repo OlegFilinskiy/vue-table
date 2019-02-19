@@ -1,42 +1,65 @@
 <template>
-  <main class="container py-4">
+  <main id="app" class="container py-4">
     <img class="logo d-block mx-auto mb-4" src="./assets/logo.svg" alt="StarWars logo">
     <div class="table">
-      <!--<table-head :titles="titles"/>-->
-      <!--<table-row :items="items" :style="cellWidth"/>-->
-      <div class="table__head row">
-        <div class="cell p-2" :style="cellWidth">№ <i class="fa fa-sort"></i></div>
-        <div class="cell p-2" v-for="(title, index) in titles" :index="index" :key="index" :style="cellWidth">
-          {{title}} <i class="fa fa-sort"></i>
-        </div>
-      </div>
-      <div class="table__row row" v-for="(item, index) in items" :index="index" :key="index">
-        <div class="cell p-2" :style="cellWidth">
-          {{index + 1}}
-        </div>
-        <div class="cell p-2" v-for="cell in item" :style="cellWidth">
-          {{cell}}
-        </div>
-      </div>
+      <table-head :titles="titles" />
+      <table-row v-for="(item, index) in items"
+                 :item="item"
+                 :index="index"
+                 :key="index"
+                 :styleToCell="cellWidth" />
     </div>
+
+    <!--Bootstrap Pagination-->
+    <!--<div class="overflow-auto mt-4 text-center">-->
+      <!--<div>-->
+        <!--<b-pagination size="md"-->
+                      <!--align="center"-->
+                      <!--:total-rows="100"-->
+                      <!--v-model="currentPage"-->
+                      <!--:per-page="10" />-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--vuejs-paginate-->
+    <!--<paginate-->
+      <!--v-model="page"-->
+      <!--:page-count="20"-->
+      <!--:page-range="3"-->
+      <!--:margin-pages="2"-->
+      <!--:click-handler="clickCallback"-->
+      <!--:prev-text="'Prev'"-->
+      <!--:next-text="'Next'"-->
+      <!--:container-class="'pagination'"-->
+      <!--:page-class="'page-item'">-->
+    <!--</paginate>-->
   </main>
 </template>
 
 <script>
   import json from './initialData.json'
-  // import TableHead from './components/TableHead'
-  // import TableRow from './components/TableRow'
+  import TableHead from './components/TableHead'
+  import TableRow from './components/TableRow'
 
   export default {
     name: 'app',
-    // components: {
-    //   tableHead: TableHead
-    // },
+    components: {
+      tableHead: TableHead,
+      tableRow: TableRow
+    },
     data() {
       return {
         myJson: json,
         titles: json.titles,
-        items: json.items
+        items: json.items,
+        totalItems: 0,
+        perPage: 10,
+        currentPage: 1
+      }
+    },
+    methods: {
+      clickCallback (pageNum) {
+        console.log(pageNum)
       }
     },
     computed: {
@@ -53,25 +76,4 @@
   .table
     box-shadow: 0px 0px 37px 0px rgba(0, 0, 0, 0.45)
     padding: 2rem 3rem
-
-    &__head
-      border-bottom: 1px solid #000
-      border-top: 1px solid #000
-
-      .cell
-        display: flex
-        justify-content: space-between
-        align-items: center
-        cursor: pointer
-        font-weight: bold
-        background: #e9e9e9
-
-    &__row
-      border-bottom: 1px solid #000
-
-    .cell
-      border-right: 1px solid #000
-
-      &:first-child
-        border-left: 1px solid #000
 </style>
