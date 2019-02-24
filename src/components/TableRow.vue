@@ -13,12 +13,7 @@
 </template>
 
 <script>
-  import Cell from './Cell'
-
   export default {
-    components: {
-        Cell
-    },
     props: ['item', 'styleToCell', 'index']
   }
 </script>
