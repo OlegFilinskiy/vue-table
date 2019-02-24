@@ -1,5 +1,5 @@
 <template>
-  <div class="table__head row">
+  <div class="table__head row mx-0">
     <div class="cell p-2" :style="cellWidth">№ <i class="fa fa-sort"></i></div>
     <div class="cell p-2"
          v-for="(title, index) in titles"

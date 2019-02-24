@@ -1,5 +1,5 @@
 <template>
-  <div class="table__row row">
+  <div class="table__row row mx-0">
     <div class="cell p-2"
          :style="styleToCell"
     >{{index + 1}}</div>
