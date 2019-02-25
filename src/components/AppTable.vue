@@ -6,7 +6,8 @@
         <th>#</th>
         <th v-for="(col, index) in columns"
             @click="sortBy(index)"
-            :class="{ active: sortKey == col }">
+            :class="{ active: sortKey == col }"
+        >
           {{ col }}
           <span class="arrow" :class="sortOrders[index] > 0 ? 'asc' : 'dsc'">
             </span>
@@ -50,14 +51,14 @@
 
     <div class="pagin">
       <div class="text-center mt-3">Page {{pageNumber + 1}} of {{pageCount}}</div>
-      <div class="d-flex justify-content-center align-content-center mt-3">
+      <div class="d-flex justify-content-center align-items-center mt-3">
         <button
-          class="btn btn-primary mr-2 btn-nav"
+          class="btn btn-primary btn-nav"
           :disabled="pageNumber === 0"
           @click="prevPage">
           Previous
         </button>
-        <ul class="pagin__list">
+        <ul class="pagin__list mx-2 mx-md-3 my-0 p-0 d-flex justify-content-center align-items-center">
           <li class="pagin__item"
               v-for="(page, index) in pages"
           >
@@ -190,6 +191,9 @@
     td, th
       border-right: 1px solid #dee2e6
       max-width: 80px
+      font-size: 13px
+      padding: .5rem
+      vertical-align: middle
 
       &:first-child
         border-left: 1px solid #dee2e6
@@ -231,14 +235,7 @@
 
   .pagin
     &__list
-      display: flex
-      justify-content: center
-      align-items: center
       list-style: none
-      margin: 0 20px
-      padding: 0
-      @media (max-width: 568px)
-        margin: 0 10px
 
     &__item
       a
@@ -251,12 +248,14 @@
         background: transparent
         transition: all .2s
         border: 1px solid #ccc
+
         &:hover
           border-color: #007bff
           color: #007bff
 
   .btn-nav
     width: 100px
+
     @media (max-width: 568px)
       width: 60px
       font-size: 12px
