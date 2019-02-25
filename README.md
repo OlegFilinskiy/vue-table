@@ -2,7 +2,7 @@
 
 > This project is a table written using Vue.js and Bootstrap 4
 
-![Screenshot of example](https://github.com/OlegFilinskiy/vue-table/src/assets/screenshot.png)
+![Screenshot of example](https://github.com/OlegFilinskiy/vue-table/raw/master/src/assets/screenshot.png)
 
 ## Build Setup
 
