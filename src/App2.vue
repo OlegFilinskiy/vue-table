@@ -8,22 +8,13 @@
           <span class="input-group-text px-5" id="searchAll">Search filter</span>
         </div>
       </div>
+
       <app-table
           :rows="items"
           :columns="titles"
+          :per-page="perPage"
           :search-filter="searchAll">
       </app-table>
-    </div>
-
-    <!--Bootstrap Pagination-->
-    <div class="overflow-auto mt-4 text-center">
-      <div>
-        <b-pagination size="md"
-                      align="center"
-                      :total-rows="totalItems"
-                      v-model="currentPage"
-                      :per-page="10" />
-      </div>
     </div>
   </main>
 </template>
@@ -44,8 +35,7 @@
         titles: json.titles,
         items: json.items,
         totalItems: json.items.length,
-        perPage: 10,
-        currentPage: 1
+        perPage: 10
       }
     }
   }
@@ -55,7 +45,12 @@
   .table
     box-shadow: 0px 0px 37px 0px rgba(0, 0, 0, 0.45)
     padding: 2rem 3rem
+    @media (max-width: 992px)
+      padding: 1.5rem
 
     &__filters
       border-top: 1px solid #000
+
+    &__wrapper
+      overflow: auto
 </style>
