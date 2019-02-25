@@ -6,11 +6,10 @@
         <th>#</th>
         <th v-for="(col, index) in columns"
             @click="sortBy(index)"
-            :class="{ active: sortKey == col }"
+            :class="{ active: sortKey == index }"
         >
-          {{ col }}
-          <span class="arrow" :class="sortOrders[index] > 0 ? 'asc' : 'dsc'">
-            </span>
+          <span>{{ col }}</span>
+          <span class="arrow" :class="sortOrders[index] > 0 ? 'asc' : 'dsc'"></span>
         </th>
         <th>Actions</th>
       </tr>
@@ -51,7 +50,7 @@
 
     <div class="pagin">
       <div class="text-center mt-3">Page {{pageNumber + 1}} of {{pageCount}}</div>
-      <div class="d-flex justify-content-center align-items-center mt-3">
+      <div class="d-flex justify-content-center align-items-center mt-3 pb-1">
         <button
           class="btn btn-primary btn-nav"
           :disabled="pageNumber === 0"
@@ -62,7 +61,12 @@
           <li class="pagin__item"
               v-for="(page, index) in pages"
           >
-            <a href="#" @click.prevent="changePage(index)">{{ page }}</a>
+            <a href="#"
+               @click.prevent="changePage(index)"
+               :class="{ current: (pageNumber + 1) == page }"
+            >
+              {{ page }}
+            </a>
           </li>
         </ul>
         <button
@@ -183,8 +187,9 @@
       background: #e9e9e9
       cursor: pointer
       white-space: nowrap
-
+      
       &.active
+        background: #cecece
         .arrow
           opacity: 1
 
@@ -249,9 +254,13 @@
         transition: all .2s
         border: 1px solid #ccc
 
-        &:hover
+        &:hover,
+        &.current
           border-color: #007bff
           color: #007bff
+
+        @media (max-width: 568px)
+          padding: 0 5px
 
   .btn-nav
     width: 100px
@@ -259,5 +268,5 @@
     @media (max-width: 568px)
       width: 60px
       font-size: 12px
-      padding: 0
+      padding: 3px
 </style>
