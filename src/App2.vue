@@ -8,20 +8,15 @@
           <span class="input-group-text px-5" id="searchAll">Search filter</span>
         </div>
       </div>
-
-      <app-table
-          :rows="items"
-          :columns="titles"
-          :per-page="perPage"
-          :search-filter="searchAll">
-      </app-table>
+      <app-table></app-table>
+      <!--<app-pagination></app-pagination>-->
     </div>
   </main>
 </template>
 
 <script>
-  import json from './initialData.json'
   import AppTable from './components/AppTable'
+  import AppPagination from './components/Pagination'
 
   export default {
     name: 'app',
@@ -29,14 +24,7 @@
       AppTable
     },
     data() {
-      return {
-        searchAll: '',
-        myJson: json,
-        titles: json.titles,
-        items: json.items,
-        totalItems: json.items.length,
-        perPage: 10
-      }
+      return {}
     }
   }
 </script>

@@ -47,73 +47,56 @@
       </tr>
       </tbody>
     </table>
-
-    <div class="pagin">
-      <div class="text-center mt-3">Page {{pageNumber + 1}} of {{pageCount}}</div>
-      <div class="d-flex justify-content-center align-items-center mt-3 pb-1">
-        <button
-          class="btn btn-primary btn-nav"
-          :disabled="pageNumber === 0"
-          @click="prevPage">
-          Previous
-        </button>
-        <ul class="pagin__list mx-2 mx-md-3 my-0 p-0 d-flex justify-content-center align-items-center">
-          <li class="pagin__item"
-              v-for="(page, index) in pages"
-          >
-            <a href="#"
-               @click.prevent="changePage(index)"
-               :class="{ current: (pageNumber + 1) == page }"
-            >
-              {{ page }}
-            </a>
-          </li>
-        </ul>
-        <button
-          class="btn btn-primary btn-nav"
-          :disabled="pageNumber >= pageCount -1"
-          @click="nextPage">
-          Next
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
   export default {
-    props: {
-      rows: Array,
-      columns: Object,
-      searchFilter: String,
-      perPage: Number
-    },
     data() {
-      let sortOrders = {}
-      Object.keys(this.columns).forEach(function (col) {
+      let sortOrders = {};
+      Object.keys(this.titles).forEach(function (col) {
         sortOrders[col] = 1
       });
-
       return {
-        sortKey: '',
-        sortOrders: sortOrders,
-        pageNumber: 0,
-        pageRange: 2,
-        isEdit: false
+        sortOrders: sortOrders
       }
     },
     computed: {
+      columns() {
+        return this.$store.state.titles
+      },
+      rows() {
+        return this.$store.state.items
+      },
+      searchAll() {
+        return this.$store.state.searchAll
+      },
+      perPage() {
+        return this.$store.state.perPage
+      },
+      totalItems() {
+        return this.$store.getters.totalItems
+      },
+      pageNumber() {
+        return this.$store.state.pageNumber
+      },
+      pageRange() {
+        return this.$store.state.pageRange
+      },
+      sortKey() {
+        return this.$store.state.sortKey
+      },
+      isEdit() {
+        return this.$store.state.isEdit
+      },
       pageCount() {
-        let l = this.rows.length;
-        let s = this.perPage;
-        return Math.floor(l / s);
+        return Math.floor(this.totalItems / this.perPage);
       },
       filteredRows() {
         let start = this.pageNumber * this.perPage;
         let end = start + this.perPage;
-
         let sortKey = this.sortKey;
-        let searchFilter = this.searchFilter && this.searchFilter.toLowerCase();
+        let searchFilter = this.searchAll && this.searchAll.toLowerCase();
         let order = this.sortOrders[sortKey] || 1;
         let rows = this.rows;
         if (searchFilter) {
@@ -131,21 +114,6 @@
           }).slice(start, end)
         }
         return rows.slice(start, end)
-      },
-      rangeStart() {
-        let start = this.pageNumber - this.pageRange;
-        return (start > 0) ? start : 1;
-      },
-      rangeEnd() {
-        let end = this.pageNumber + this.pageRange;
-        return (end < this.pageCount) ? end : this.pageCount;
-      },
-      pages() {
-        let pages = [];
-        for (let i = this.rangeStart; i <= this.rangeEnd; i++) {
-          pages.push(i);
-        }
-        return pages
       }
     },
     methods: {
@@ -153,15 +121,6 @@
         this.pageNumber = 0;
         this.sortKey = index;
         this.sortOrders[index] = this.sortOrders[index] * -1
-      },
-      nextPage() {
-        this.pageNumber++;
-      },
-      prevPage() {
-        this.pageNumber--;
-      },
-      changePage(index) {
-        this.pageNumber = index;
       },
       onEdit(index) {
         this.isEdit = !this.isEdit;
@@ -237,36 +196,4 @@
     .input-edit
       max-width: 73px
       padding: 2px
-
-  .pagin
-    &__list
-      list-style: none
-
-    &__item
-      a
-        display: block
-        padding: 0 10px
-        border-radius: 4px
-        text-decoration: none
-        color: #999
-        margin: 0 6px
-        background: transparent
-        transition: all .2s
-        border: 1px solid #ccc
-
-        &:hover,
-        &.current
-          border-color: #007bff
-          color: #007bff
-
-        @media (max-width: 568px)
-          padding: 0 5px
-
-  .btn-nav
-    width: 100px
-
-    @media (max-width: 568px)
-      width: 60px
-      font-size: 12px
-      padding: 3px
 </style>
